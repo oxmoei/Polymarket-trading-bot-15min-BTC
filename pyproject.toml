@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "polymarket-trading-bot-15min-btc"
+version = "0.1.0"
+description = "Professional arbitrage bot for Bitcoin 15-minute markets on Polymarket."
+authors = ["Terauss <terauss@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+py-clob-client = "*"
+websockets = "12.0"
+httpx = "0.27.0"
+python-dotenv = "1.0.1"
+rich = "^13.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
