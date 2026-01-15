@@ -34,6 +34,7 @@ Profit:               $0.01 per share (1.01%)
 
 ### 1. Clone the repository and enter the project directory
 (Make sure you have `git` installed. If not, see ➡️ [Git installation guide](./安装git教程.md))
+
 ```
 git clone https://github.com/terauss/Polymarket-trading-bot-15min-BTC.git
 
