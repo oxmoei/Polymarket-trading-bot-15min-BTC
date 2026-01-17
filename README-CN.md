@@ -35,7 +35,7 @@
 ### 1. 克隆仓库并进入项目目录
 （确保你已安装 `git`，如果未安装请参考➡️[安装git教程](./安装git教程.md)）
 ```
-git clone https://github.com/terauss/Polymarket-trading-bot-15min-BTC.git
+git clone https://github.com/oxmoei/Polymarket-trading-bot-15min-BTC
 
 cd Polymarket-trading-bot-15min-BTC
 ```

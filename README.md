@@ -36,7 +36,7 @@ Profit:               $0.01 per share (1.01%)
 (Make sure you have `git` installed. If not, see ➡️ [Git installation guide](./安装git教程.md))
 
 ```
-git clone https://github.com/terauss/Polymarket-trading-bot-15min-BTC.git
+git clone https://github.com/oxmoei/Polymarket-trading-bot-15min-BTC
 
 cd Polymarket-trading-bot-15min-BTC
 ```
