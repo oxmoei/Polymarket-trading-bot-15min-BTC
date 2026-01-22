@@ -13,6 +13,7 @@ websockets = "12.0"
 httpx = "0.27.0"
 python-dotenv = "1.0.1"
 rich = "^13.0.0"
+web3 = "*"
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]
