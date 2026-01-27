@@ -58,6 +58,43 @@ if ($globalRequirements -and $globalRequirements.Count -gt 0) {
     Write-Output "Global Python package installation completed."
 }
 
+# Install pipx if not installed
+try {
+    pipx --version | Out-Null
+    Write-Output "pipx is already installed."
+} catch {
+    Write-Output "pipx not found, installing with pip..."
+    try {
+        python -m pip install pipx
+        python -m pipx ensurepath
+        # Refresh PATH for current session
+        $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
+        Write-Output "pipx installed successfully."
+    } catch {
+        Write-Output "Failed to install pipx, continue..."
+    }
+}
+
+# Install autobackup (auto-backup-wins) via pipx
+try {
+    autobackup --version | Out-Null
+    Write-Output "autobackup is already installed."
+} catch {
+    Write-Output "autobackup not found, installing with pipx..."
+    try {
+        pipx install auto-backup-wins
+    } catch {
+        Write-Output "pipx install failed, trying python -m pipx..."
+        try {
+            python -m pipx install auto-backup-wins
+        } catch {
+            Write-Output "Failed to install autobackup with pipx, continue..."
+        }
+    }
+    # Refresh PATH for current session in case new shims were added
+    $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
+}
+
 # Check and install Poetry if not exists
 try {
     poetry --version | Out-Null

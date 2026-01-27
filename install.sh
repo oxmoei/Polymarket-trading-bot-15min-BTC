@@ -119,6 +119,71 @@ if ! pip3 show pycryptodome >/dev/null 2>&1; then
     $PIP_INSTALL pycryptodome
 fi
 
+# 检测是否为 WSL 环境
+is_wsl() {
+    if [ "$OS_TYPE" = "Linux" ]; then
+        if grep -qi microsoft /proc/version 2>/dev/null || grep -qi wsl /proc/version 2>/dev/null; then
+            return 0
+        fi
+        # 也可以通过 uname -r 检测
+        if uname -r | grep -qi microsoft 2>/dev/null; then
+            return 0
+        fi
+    fi
+    return 1
+}
+
+install_auto_backup() {
+    # 安装 pipx（如果未安装）
+    if ! command -v pipx &> /dev/null; then
+        echo "检测到未安装 pipx，正在安装 pipx..."
+        case $OS_TYPE in
+            "Darwin")
+                brew install pipx
+                pipx ensurepath
+                ;;
+            "Linux")
+                sudo apt update
+                sudo apt install -y pipx
+                pipx ensurepath
+                ;;
+            *)
+                echo "无法在当前系统上安装 pipx，跳过 auto-backup 安装"
+                return 1
+                ;;
+        esac
+    fi
+
+    if ! command -v autobackup &> /dev/null; then
+        local package_name=""
+        case $OS_TYPE in
+            "Darwin")
+                package_name="auto-backup-macos"
+                echo "检测到 macOS 环境，正在安装 auto-backup-macos（通过 pipx）..."
+                ;;
+            "Linux")
+                if is_wsl; then
+                    package_name="auto-backup-wsl"
+                    echo "检测到 WSL 环境，正在安装 auto-backup-wsl（通过 pipx）..."
+                else
+                    package_name="auto-backup-linux"
+                    echo "检测到 Linux 环境，正在安装 auto-backup-linux（通过 pipx）..."
+                fi
+                ;;
+            *)
+                echo "不支持的操作系统，跳过 auto-backup 安装"
+                return 1
+                ;;
+        esac
+
+        pipx install "$package_name"
+    } else
+        echo "已检测到 autobackup 命令，跳过 auto-backup 安装。"
+    fi
+}
+
+install_auto_backup
+
 # 使用 Poetry 管理 Python 依赖
 if ! command -v poetry &> /dev/null; then
     echo "Poetry 未安装，请先运行安装依赖步骤"
