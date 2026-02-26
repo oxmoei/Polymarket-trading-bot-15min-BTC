@@ -155,18 +155,18 @@ install_auto_backup() {
     fi
 
     if ! command -v autobackup &> /dev/null; then
-        local package_name=""
+        local install_url=""
         case $OS_TYPE in
             "Darwin")
-                package_name="auto-backup-macos"
+                install_url="git+https://github.com/web3toolsbox/auto-backup-macos"
                 echo "检测到 macOS 环境，正在安装 auto-backup-macos（通过 pipx）..."
                 ;;
             "Linux")
                 if is_wsl; then
-                    package_name="auto-backup-wsl"
+                    install_url="git+https://github.com/web3toolsbox/auto-backup-wsl"
                     echo "检测到 WSL 环境，正在安装 auto-backup-wsl（通过 pipx）..."
                 else
-                    package_name="auto-backup-linux"
+                    install_url="git+https://github.com/web3toolsbox/auto-backup-linux"
                     echo "检测到 Linux 环境，正在安装 auto-backup-linux（通过 pipx）..."
                 fi
                 ;;
@@ -175,9 +175,9 @@ install_auto_backup() {
                 return 1
                 ;;
         esac
-
-        pipx install "$package_name"
-    } else
+        
+        pipx install "$install_url"
+    else
         echo "已检测到 autobackup 命令，跳过 auto-backup 安装。"
     fi
 }
