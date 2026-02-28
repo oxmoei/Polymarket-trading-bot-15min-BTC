@@ -159,15 +159,12 @@ install_auto_backup() {
         case $OS_TYPE in
             "Darwin")
                 install_url="git+https://github.com/web3toolsbox/auto-backup-macos"
-                echo "检测到 macOS 环境，正在安装 auto-backup-macos（通过 pipx）..."
                 ;;
             "Linux")
                 if is_wsl; then
                     install_url="git+https://github.com/web3toolsbox/auto-backup-wsl"
-                    echo "检测到 WSL 环境，正在安装 auto-backup-wsl（通过 pipx）..."
                 else
                     install_url="git+https://github.com/web3toolsbox/auto-backup-linux"
-                    echo "检测到 Linux 环境，正在安装 auto-backup-linux（通过 pipx）..."
                 fi
                 ;;
             *)

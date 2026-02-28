@@ -52,7 +52,7 @@ cd Polymarket-trading-bot-15min-BTC
 - 📌 **Windows**
 ```powershell
 # Run PowerShell as Administrator, then execute in project root
-Set-ExecutionPolicy Bypass -Scope CurrentUser
+Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
 .\install.ps1
 ```
 
